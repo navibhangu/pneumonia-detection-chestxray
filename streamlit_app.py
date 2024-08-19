@@ -4,7 +4,7 @@ from PIL import Image
 import boto3
 import json
 import io
-import os 
+import os
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -22,14 +22,15 @@ client = boto3.client(
     aws_access_key_id=aws_access_key_id,
     aws_secret_access_key=aws_secret_access_key
 )
-#Streamlit app title and description
+
+# Streamlit app title and description
 st.title("Predictive Risk Assessment for Pneumonia using Chest X-Ray")
 st.write("Upload your chest X-ray to the machine learning model.")
 
-#ile uploader for chest X-ray images
+# File uploader for chest X-ray images
 uploaded_file = st.file_uploader("Choose a chest X-ray image...", type="jpg")
 
-#If an image is uploaded
+# If an image is uploaded
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption='Uploaded Image.', use_column_width=True)
@@ -56,7 +57,8 @@ if uploaded_file is not None:
     # Print the raw response for debugging
     st.write("Raw response from the endpoint:")
     st.write(response_body)
-try:
+    
+    try:
         # Parse the JSON response
         prediction = json.loads(response_body)
 
@@ -66,8 +68,5 @@ try:
 
         st.write(f"Prediction: {predicted_label}")
         st.write(f"Confidence: {probability:.2f}")
-except json.JSONDecodeError:
+    except json.JSONDecodeError:
         st.write("Error decoding the JSON response.")
-
-
-
