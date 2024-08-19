@@ -73,4 +73,3 @@ if uploaded_file is not None:
         st.write("Error decoding the JSON response.")
     except Exception as e:
         st.write(f"An error occurred: {str(e)}")
-
