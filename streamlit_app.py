@@ -4,7 +4,7 @@ from PIL import Image
 import boto3
 import json
 import io
-import os
+import os 
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -44,21 +44,21 @@ if uploaded_file is not None:
     img_bytes = img_byte_arr.getvalue()
 
     # Invoke the SageMaker endpoint
-    response = client.invoke_endpoint(
-        EndpointName="canvas-new-deployment-08-18-2024-5-56-PM",  # Your SageMaker endpoint name without colon
-        ContentType="image/jpeg",  # The content type
-        Body=img_bytes,            # The image data as bytes
-        Accept="application/json"  # The expected response format
-    )
-
-    # Read the response body once
-    response_body = response['Body'].read().decode('utf-8')
-
-    # Print the raw response for debugging
-    st.write("Raw response from the endpoint:")
-    st.write(response_body)
-    
     try:
+        response = client.invoke_endpoint(
+            EndpointName="canvas-new-deployment-08-18-2024-5-56-PM",  # Your SageMaker endpoint name
+            ContentType="image/jpeg",  # The content type
+            Body=img_bytes,            # The image data as bytes
+            Accept="application/json"  # The expected response format
+        )
+
+        # Read the response body once
+        response_body = response['Body'].read().decode('utf-8')
+
+        # Print the raw response for debugging
+        st.write("Raw response from the endpoint:")
+        st.write(response_body)
+
         # Parse the JSON response
         prediction = json.loads(response_body)
 
@@ -68,5 +68,9 @@ if uploaded_file is not None:
 
         st.write(f"Prediction: {predicted_label}")
         st.write(f"Confidence: {probability:.2f}")
+
     except json.JSONDecodeError:
         st.write("Error decoding the JSON response.")
+    except Exception as e:
+        st.write(f"An error occurred: {str(e)}")
+
