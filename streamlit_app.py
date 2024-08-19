@@ -25,6 +25,19 @@ client = boto3.client(
 
 # Streamlit app title and description
 st.title("Predictive Risk Assessment for Pneumonia using Chest X-Ray")
+# Display the steps for managing pneumonia
+st.write("""
+**Steps to Follow if You Have Pneumonia:**
+
+1. **Consult a Doctor**: Get a professional diagnosis and treatment plan.
+2. **Follow Treatment**: Take prescribed medications and rest.
+3. **Manage Symptoms**: Use over-the-counter meds for fever and pain as advised.
+4. **Stay Hydrated**: Drink plenty of fluids.
+5. **Monitor Your Condition**: Watch for worsening symptoms and seek help if needed.
+6. **Practice Good Hygiene**: Wash hands often and avoid spreading germs.
+7. **Consider Vaccination**: Get vaccinated for pneumonia and flu if recommended.
+""")
+
 st.write("Upload your chest X-ray to the machine learning model.")
 
 # File uploader for chest X-ray images
