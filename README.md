@@ -1,19 +1,31 @@
-# 🎈 Blank app template
+# 🩺 Predictive Risk Assessment for Pneumonia — Chest X-Ray Classifier
 
-A simple Streamlit app template for you to modify!
+This Streamlit app lets you upload a chest X-ray image and get a **pneumonia risk prediction** from an **AWS SageMaker** machine learning model.  
+It returns the predicted label (e.g., "Pneumonia" / "Normal") and confidence score.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+> ⚠ **Disclaimer:** This app is for **educational and demonstration purposes only**. It is **not** a medical diagnostic tool. Always seek professional medical advice.
 
-### How to run it on your own machine
+---
 
-1. Install the requirements
+## Features
+- Upload `.jpg` chest X-ray images
+- Preprocess image to model’s expected format (`224×224`)
+- Send the image to a **SageMaker real-time endpoint**
+- Display:
+  - Raw JSON response from the model
+  - Predicted label
+  - Model confidence score
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+---
 
-2. Run the app
-
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+## Requirements
+- Python 3.9–3.11
+- AWS account with:
+  - Deployed SageMaker endpoint
+  - IAM permission: `sagemaker:InvokeEndpoint`
+- Endpoint must accept `image/jpeg` and return JSON like:
+```json
+{
+  "predicted_label": "Pneumonia",
+  "probability": 0.93
+}
